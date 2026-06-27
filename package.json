@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "tsx generator.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,10 +13,12 @@
   "type": "commonjs",
   "dependencies": {
     "canvas": "^3.2.3",
-    "jsbarcode": "^3.12.3"
+    "jsbarcode": "^3.12.3",
+    "prompt-sync": "^4.2.0"
   },
   "devDependencies": {
     "@types/node": "^25.9.2",
+    "@types/prompt-sync": "^4.2.3",
     "tsx": "^4.22.4",
     "typescript": "^6.0.3"
   }
