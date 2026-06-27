@@ -194,6 +194,7 @@ export class Encoder {
 
         const messageInBinaryStr = this.messageInBinary.join(",")
         this.imageMessage = new Conversor(message);
+        this.imageMessage.convertBinaryToBars(this.messageInBinary)
         this.imageMessage.binaryToImage(this.messageInBinary)
         return messageInBinaryStr;
     }

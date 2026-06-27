@@ -1,31 +1,43 @@
 import { createCanvas } from 'canvas';
 import * as fs from 'fs';
 import * as path from 'path';
+import { text } from 'stream/consumers';
 
 
 export class Conversor {
 
     private outputPath: string;
+    private rawMessage?: string;
 
     constructor(rawMessage?: string){
+        this.rawMessage = rawMessage;
         this.outputPath = path.join(__dirname, "..", "..", `barcodes/${rawMessage || "barcode"}.png`)
     }
 
 
     convertBinaryToBars(message: string[]){
-        console.log(message)
         const barcode = message.join("").replace(/1/g, "██").replace(/0/g, "  ")
         const quietZone = "  ".repeat(10)
-        console.log(quietZone + barcode + quietZone)
+        const fullBarcodeLine = quietZone + barcode + quietZone;
 
-        for (let r = 0; r < 10; r++) {
-            console.log(quietZone + barcode + quietZone);
+        if (this.rawMessage) {
+            console.log(`\nGerando código de barras para: "${this.rawMessage}"\n`);
+        }
+
+        for (let r = 0; r < 11; r++) {
+            console.log(fullBarcodeLine);
+        }
+
+        if (this.rawMessage) {
+            const totalWidth = fullBarcodeLine.length;
+            const textWidth = this.rawMessage.length;
+            const padding = Math.max(0, Math.floor((totalWidth - textWidth) / 2));
+            console.log(" ".repeat(padding) + this.rawMessage + "\n");
         }
     }
 
 
     binaryToImage(message: string[]) {
-
         const binaryMessage = message.join("");
 
         // Dimensions Config
